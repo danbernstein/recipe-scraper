@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "Recipe Scraper",
+  "description": "This extension formats a webpage to only include the recipe.",
+  "version": "0.2",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+    },
+  "commands": {
+      "_execute_browser_action": {
+        "suggested_key": {
+          "default": "Ctrl+Shift+A",
+          "mac": "MacCtrl+Shift+R"
+        },
+        "description": "extracts recipe"
+      }
+    }
+}
