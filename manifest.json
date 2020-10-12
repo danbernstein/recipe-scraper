@@ -4,7 +4,7 @@
   "description": "This extension formats a webpage to only include the recipe.",
   "version": "0.2",
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "recipe-scraper/img/recipe-book.png"
   },
   "permissions": [
     "activeTab",
@@ -12,17 +12,8 @@
   ],
   "background": {
     "scripts": [
-      "background.js"
+      "recipe-scraper/background.js"
     ],
     "persistent": false
-    },
-  "commands": {
-      "_execute_browser_action": {
-        "suggested_key": {
-          "default": "Ctrl+Shift+A",
-          "mac": "MacCtrl+Shift+R"
-        },
-        "description": "extracts recipe"
-      }
     }
 }
