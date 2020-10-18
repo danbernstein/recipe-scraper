@@ -38,13 +38,21 @@ function get_print_url(html, tab_url) {
          * @ param {String} tab_url : the URL of the webpage.
          * returns : {String} print_url : the URl of the printer-friendly webpage.
      */
-    print_element = html.evaluate("//*[not(name()='style')][contains(text(), 'Print')][@href|@data-mv-print]", html.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null )
+
+    /// wrpm is a common css template 
+    print_element = html.evaluate("//div[contains(@id, 'wprm-recipe-container-')]", html.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null )
 
     if ( print_element.singleNodeValue == null ) {
-    /// look at parent of the 'print' element
+    /// look for any button that might indicate the printer-friendly version
+        print_element = html.evaluate("//*[not(name()='style')][contains(text(), 'Print')][@href|@data-mv-print]", html.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null )
+    }
+
+    if ( print_element.singleNodeValue == null ) {
+    /// look at parent of the 'print' element, if that might contain the printing functionality
         print_element = html.evaluate("//*[not(name()='style')][contains(text(), 'Print') ]/..", html.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null )
     }
 
+    console.log(print_element.singleNodeValue)
     if ( print_element.singleNodeValue != null ) {
         node_value = print_element.singleNodeValue
 
@@ -53,8 +61,12 @@ function get_print_url(html, tab_url) {
         }
         else if ( node_value.hasAttribute('data-mv-print') ) {
             print_url = node_value.getAttribute('data-mv-print')
+        } else if (node_value.hasAttribute('data-recipe-id') ) {
+            recipe_id = node_value.getAttribute('data-recipe-id')
+            print_url = tab_url.split('.com/')[0] + '.com/wprm_print/' + recipe_id
         }
 
+        console.log(print_url)
         if (typeof print_url !== 'undefined') {
             url_match = print_url.match("^(\\?|\\/).*") // conditions when to append to original url because the URL is only the extension
 
