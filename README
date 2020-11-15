@@ -2,7 +2,24 @@ recipe-scraper
 
 a chrome extension to extract the recipe from a webpage.
 
-extension icon attribution:
-"Icon made by Freepik from www.flaticon.com"
+The extension navigates to the printer-friendly version of a webpage, if available. If not, 
+it will extract the main content to a new window. If all fails, an alert is triggered reporting 
+the error.
 
+This script works on many websites. 
+
+Printer-Friendly Webpage:
+- Cookie and Kate
+- Sally's Baking Addiction
+- Budget Bytes
+- All Recipes
+- Real Simple
+
+
+Extracted text:
+- Bon Appetit
+- Chrissy Teigen
+
+
+extension icon attribution: "Icon made by Freepik from www.flaticon.com"
 
