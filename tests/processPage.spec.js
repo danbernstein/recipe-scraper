@@ -11,7 +11,7 @@ describe("produce the output dictionary", () => {
       html = readFile('/html/test_chrissy_teigen.html')
       head = readFile('/html/test_chrissy_teigen_head.html')
       const input_array = [href, html, head]
-      const output = 'html2'
+      const output = 'html'
   
       expect(processPage(input_array)['type']).toEqual(output);
   
