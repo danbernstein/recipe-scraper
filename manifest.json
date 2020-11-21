@@ -16,7 +16,7 @@
       "src/functions/processPage.js",
       "src/functions/getPrintUrl.js",
       "src/functions/extractText.js",
-     // "src/functions/generateFullUrl.js",
+      "src/functions/generateFullUrl.js",
       "src/functions/generatePageText.js",
       "src/functions/getPrintElement.js"
     ],
