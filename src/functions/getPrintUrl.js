@@ -5,7 +5,6 @@ if ( process.env.JEST_WORKER_ID !== undefined ) {
 
 function getPrintUrl(html, tab_url) {
     const print_element = getPrintElement(html)
-    console.log(print_element)
 
     if ( print_element.singleNodeValue != null ) {
         node_value = print_element.singleNodeValue
@@ -23,7 +22,7 @@ function getPrintUrl(html, tab_url) {
         if (typeof print_url !== 'undefined') {
             return generateFullUrl(print_url, tab_url)
         } 
-    }
+    } 
 }
 
 exports.getPrintUrl = getPrintUrl;
