@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Recipe Scraper",
   "description": "This extension formats a webpage to only include the recipe.",
-  "version": "0.4",
+  "version": "0.41",
   "browser_action": {
     "default_icon": "src/img/recipe-book.png"
   },
