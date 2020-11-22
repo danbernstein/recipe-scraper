@@ -22,11 +22,10 @@
   "homepage": "https://github.com/danbernstein/recipe-scraper#readme",
   "devDependencies": {
     "chrome-webstore-upload": "^0.4.2",
-    "jest": "^26.6.3",
-    "jest-chrome": "^0.7.0"
+    "jest": "^26.6.3"
   },
   "dependencies": {
-    "axios": "^0.21.0",
+    "jest-chrome": "^0.7.0",
     "requirejs": "^2.3.6"
   }
 }
