@@ -1,21 +1,26 @@
-version: 2
 jobs:
-  build:
+  build-and-test:
     docker:
-      - image: ubuntu:16.04
-    environment:
-      - APP_ID: plamjaipkjccppcicaomjnggmiencmhf
-      - MAIN_BRANCH: main
+      - image: cimg/node:15.2.1
     steps:
       - checkout
       - run:
           name: "Install Dependencies"
           command: |
-            apt-get update
-            apt-get -y install curl jq git
+            sudo apt-get update
+            sudo apt-get -y install curl jq git
+            npm install
       - run:
-          name: "Run Tests"
+          name: "Run test suites"
           command: npm test
+  deploy:
+    docker:
+      - image: cimg/node:15.2.1
+    environment:
+        - APP_ID: plamjaipkjccppcicaomjnggmiencmhf
+        - MAIN_BRANCH: main
+    steps:
+      - checkout
       - run:
           name: "Package Extension"
           command: git archive -o extension.zip HEAD
@@ -27,3 +32,12 @@ jobs:
               curl -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "x-goog-api-version: 2" -X PUT -T extension.zip -v "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${APP_ID}"
               curl -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "x-goog-api-version: 2" -H "Content-Length: 0" -X POST -v "https://www.googleapis.com/chromewebstore/v1.1/items/${APP_ID}/publish"
             fi
+
+version: 2.1
+workflows:
+  build-test-deploy:
+    jobs:
+      - build-and-test
+      - deploy:
+          requires:
+            - build-and-test
