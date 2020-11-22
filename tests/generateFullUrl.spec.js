@@ -27,3 +27,17 @@ describe("generate a full url", () => {
     });
   });
   
+
+
+describe("generate a full url", () => {
+  test("it should return a full url replacing the leading '//' with 'https://'", () => {
+
+    const input_href = "//www.foodnetwork.com/recipes/food-network-kitchen/thanksgiving-chicken-over-roasted-vegetables-8849700"
+    const input_base_url = "https://www.foodnetwork.com/"
+
+    const output = "https://www.foodnetwork.com/recipes/food-network-kitchen/thanksgiving-chicken-over-roasted-vegetables-8849700";
+
+    expect(generateFullUrl(input_href, input_base_url)).toEqual(output);
+
+  });
+});
