@@ -18,7 +18,6 @@ jobs:
       - image: cimg/node:15.2.1
     environment:
         - APP_ID: plamjaipkjccppcicaomjnggmiencmhf
-        - MAIN_BRANCH: main
     steps:
       - checkout
       - run:
@@ -27,7 +26,6 @@ jobs:
       - run:
           name: "Upload & Publish Extension to the Google Chrome Store"
           command: |
-            if [ "${CIRCLE_BRANCH}" == "${MAIN_BRANCH}" ]; then
               ACCESS_TOKEN=$(curl "https://accounts.google.com/o/oauth2/token" -d "client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&refresh_token=${REFRESH_TOKEN}&grant_type=refresh_token&redirect_uri=urn:ietf:wg:oauth:2.0:oob" | jq -r .access_token)
               curl -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "x-goog-api-version: 2" -X PUT -T extension.zip -v "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${APP_ID}"
               curl -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "x-goog-api-version: 2" -H "Content-Length: 0" -X POST -v "https://www.googleapis.com/chromewebstore/v1.1/items/${APP_ID}/publish"
@@ -41,3 +39,6 @@ workflows:
       - deploy:
           requires:
             - build-and-test
+          filters:
+            branches:
+              only: main
