@@ -8,7 +8,7 @@ function getPrintUrl(html, tab_url) {
 
     if ( print_element.singleNodeValue != null ) {
         node_value = print_element.singleNodeValue
-
+        console.log(node_value)
         if (node_value.hasAttribute('href')) {
             var print_url = node_value.getAttribute('href')
         }
@@ -16,9 +16,9 @@ function getPrintUrl(html, tab_url) {
             print_url = node_value.getAttribute('data-mv-print')
         } else if (node_value.hasAttribute('data-recipe-id') ) {
             recipe_id = node_value.getAttribute('data-recipe-id')
-            print_url = tab_url.split('.com/')[0] + '.com/wprm_print/' + recipe_id
+            print_url = tab_url + '/wprm_print/' + recipe_id
         }
-
+        console.log(typeof print_url)
         if (typeof print_url !== 'undefined') {
             return generateFullUrl(print_url, tab_url)
         } 

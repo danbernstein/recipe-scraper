@@ -3,6 +3,7 @@
   the entry point is the on-click listener function ('chrome.browserAction.onClicked.addListener()') at bottom.
 */
 
+
 function openPrintPreview() {
   chrome.tabs.executeScript({
       /// get the href, body, and head of the current tab, then trigger processing
@@ -11,12 +12,15 @@ function openPrintPreview() {
 }
 
 function render(output){
-  if (output['type'] == 'text') {
+  console.log(output)
+  if (output['type'] == 'html') {
     win = window.open()
     win.document.write(output['content'])
   } else if ( output['type'] == 'url' ) {
     chrome.tabs.update({url: output['content']});
-  } else if ( output['type'] == 'error' ) {
+  } else if ( output['type'] == 'printPreview' ) {
+    openPrintPreview()
+  } else {
     alert(output['content'])
   }
 }
@@ -27,10 +31,11 @@ chrome.browserAction.onClicked.addListener(function(tab) {
       /* listener function that is triggered when the user clicks the toolbar icon. */
         chrome.tabs.executeScript({
           /// get the href, body, and head of the current tab, then trigger processing
-          code: '[window.location.href, document.body.innerHTML, document.head.innerHTML]'
+          code: '[window.location.origin, document.body.innerHTML, document.head.innerHTML]'
         }, function(result) {
           const inputs = result[0]
           const output = processPage(inputs)
+          console.log(output)
           render(output)
         } 
          );
@@ -41,3 +46,4 @@ chrome.browserAction.onClicked.addListener(function(tab) {
         openPrintPreview()
       }
 });
+

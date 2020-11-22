@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "jest-chrome": "^0.7.0",
-    "requirejs": "^2.3.6"
+    "requirejs": "^2.3.6",
+    "swal": "^0.1.0"
   }
 }

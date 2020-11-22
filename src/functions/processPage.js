@@ -13,15 +13,23 @@ function processPage(inputs) {
         const [tab_url, html, head] = inputs
         const doc = new DOMParser().parseFromString(html, "text/html");
         var print_url = getPrintUrl(doc, tab_url)
+        //console.log(print_url)
         if (typeof(print_url) !== 'undefined') {
-            return {'type': 'url', 'content': print_url}
+            if ( print_url != '#' ) {
+                return {'type': 'url', 'content': print_url}
+            } else {
+                return {'type': 'printPreview', 'content': print_url }
+            }
         } else {
             const body = extractText(doc)
+            console.log(body.length)
             if ( body.length > 0 ) {
                 style = "<style>body {padding:50 20%}</style>"
                 new_page = generatePageText(head, style, body)
                 return {'type': 'html', 'content': new_page}
-            } 
+            } else {
+                return {'type': 'printPreview'}
+            }
         }
 
     }

@@ -11,22 +11,42 @@ function getPrintElement(html) {
         XPathResult.FIRST_ORDERED_NODE_TYPE, 
         null 
     )
-        
+
     /// look for any button that might indicate the printer-friendly version
     if ( print_element.singleNodeValue == null ) {
         print_element = html.evaluate(
-            ".//*[contains(text(), 'Print')][@href|@data-mv-print]", 
+            ".//text()[translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='print'][@href|@data-mv-print]", 
             html.body, 
             null, 
             XPathResult.FIRST_ORDERED_NODE_TYPE, 
             null 
         )
     }
+    console.log(print_element)
+
+
+    /// look for any button that might indicate the printer-friendly version
+    if ( print_element.singleNodeValue == null ) {
+        print_element = html.evaluate(
+            ".//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'print')][@href|@data-mv-print]", 
+            html.body, 
+            null, 
+            XPathResult.FIRST_ORDERED_NODE_TYPE, 
+            null 
+        )
+    }
+    console.log(print_element)
 
     if ( print_element.singleNodeValue == null ) {
         print_element = html.evaluate(
-            ".//*[contains(@href, 'print') ]", html.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null )
-        }
+            ".//*[contains(translate(@href, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'print') ]", 
+            html.body, 
+            null, 
+            XPathResult.FIRST_ORDERED_NODE_TYPE, 
+            null 
+        )
+    }
+    console.log(print_element)
     return print_element
 }
 
